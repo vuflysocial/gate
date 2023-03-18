@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NFT Gated Website</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+
+  </head>
+  <body>
+    <h1>Welcome to the NFT Gated Website</h1>
+    <p>Please connect your wallet to check if you have the Like Melo NFT:</p>
+    <button id="connect_wallet" onclick="connectWallet()">Connect Wallet</button>
+    <div id="wallet_connected" style="display:none;">
+      <p>Wallet connected!</p>
+      <p>Checking for NFT ownership...</p>
+      <div id="nft_owner" style="display:none;">
+        <p>Congratulations! You own the required NFT.</p>
+        <p>You will be redirected to the main page shortly...</p>
+      </div>
+      <div id="nft_not_owner" style="display:none;">
+        <p>Access denied. You do not own the required NFT.</p>
+      </div>
+    </div>
+    <script src="https://cdn.ethers.io/lib/ethers-5.1.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <script>
+      async function connectWallet() {
+        if (typeof window.ethereum === "undefined") {
+          alert("Please install MetaMask to connect your wallet.");
+          return;
+        }
+        try {
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [
+              {
+                chainId: "0x38",
+                chainName: "Binance Smart Chain",
+                nativeCurrency: {
+                  name: "BNB",
+                  symbol: "BNB",
+                  decimals: 18,
+                },
+                rpcUrls: ["https://bsc-dataseed.binance.org/"],
+                blockExplorerUrls: ["https://bscscan.com/"],
+              },
+            ],
+          });
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const signer = provider.getSigner();
+          const address = await signer.getAddress();
+          document.getElementById("connect_wallet").textContent = "Wallet Connected";
+          document.getElementById("wallet_connected").style.display = "block";
+          const nftContractAddress = "0x3AFc640336C05991492007798c6A9171058FE6a0";
+          const nftContract = new ethers.Contract(nftContractAddress, [
+            "function balanceOf(address owner) view returns (uint256 balance)",
+          ], provider);
+          const balance = await nftContract.balanceOf(address);
+          if (balance > 0) {
+            document.getElementById("nft_owner").style.display = "block";
+            setTimeout(function() {
+              window.location.href = "main.html";
+            }, 5000); // redirect to main.html after 5 seconds
+          } else {
+            document.getElementById("nft_not_owner").style.display = "block";
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    </script>
+  </body>
+</html>

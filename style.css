@@ -1,0 +1,88 @@
+/* Reset styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Main container */
+  .container {
+    max-width: 800px;
+    margin: auto;
+    padding: 40px;
+    text-align: center;
+  }
+  
+  /* Background color */
+  body {
+    background-color: #333;
+  }
+  
+  /* Heading */
+  h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Paragraphs */
+  p {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  /* Video container */
+  .videos {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  /* Video */
+  .video {
+    margin: 20px;
+  }
+  
+  .video iframe {
+    width: 100%;
+    height: 315px;
+    border: none;
+  }
+  
+  /* Download button */
+  .download_button {
+    background-color: #008080;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .download_button:hover {
+    background-color: #006666;
+  }
+  
+  /* Link button */
+  a.link_button {
+    display: inline-block;
+    background-color: #008080;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  a.link_button:hover {
+    background-color: #006666;
+  }
+  
